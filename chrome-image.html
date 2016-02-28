@@ -21,8 +21,18 @@ It has additional attribute `blob` that can be used to set an image data.
 If `src` attribute change then ajax request will be made to download the image and it will be placed
 in local filesystem so it can be displayed in Chrome apps.
 
-# Example
-## Regular image
+## Permissions
+You need to declare url pattern for the images you'd like to display.
+For example:
+
+    ...
+       "permissions": [
+          "<all_urls>"
+       ],
+    ...
+
+## Example
+### Regular image
 ```css
 .image-style {
   width:400px;
@@ -37,7 +47,7 @@ in local filesystem so it can be displayed in Chrome apps.
   preload
   src="http://lorempixel.com/600/400"></chrome-image>
 ```
-## Blob data
+### Blob data
 ```
 <chrome-image
   class="image-style"
