@@ -1,6 +1,6 @@
 {
 	"name": "chrome-image",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "LICENSE.txt",
   "description": "Displays images in Chrome app.",
   "scripts": {
