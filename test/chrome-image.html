@@ -1,0 +1,89 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <title>chrome-image tests</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/test-helpers.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../chrome-image.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <chrome-image></chrome-image>
+      </template>
+    </test-fixture>
+
+    <script>
+      var no = 0;
+      function randomImageUrl() {
+        return 'https://placekitten.com/600/40' + no++;
+      }
+
+      var image;
+      suite('<chrome-image> basic', function() {
+        setup(function() {
+          image = fixture('basic');
+        });
+        test('can load images given a src', function(done) {
+          image.addEventListener('loaded-changed', function onLoadedChanged() {
+            image.removeEventListener('loaded-changed', onLoadedChanged);
+            try {
+              expect(image.loaded).to.be.eql(true);
+              done();
+            } catch (e) {
+              done(e);
+            }
+          });
+          image.src = randomImageUrl();
+        });
+
+        test('will reload images when src changes', function(done) {
+          var loadCount = 0;
+          image.addEventListener('loaded-changed', function onLoadedChanged() {
+            if (image.loaded === true) {
+              loadCount++;
+              if (loadCount === 2) {
+                image.removeEventListener('loaded-changed', onLoadedChanged);
+                done();
+              } else {
+                image.src = randomImageUrl();
+              }
+            }
+          });
+          image.src = randomImageUrl();
+        });
+
+        // The timeout property is not working
+        test('error property is set when the image fails to load', function(done) {
+          image.addEventListener('error', function onErrorChanged() {
+            console.log(image.error);
+            assert(image.error, 'image has error property set');
+            image.removeEventListener('error', onErrorChanged);
+            done();
+          });
+          var ajax = Polymer.dom(image.root).querySelector('iron-ajax');
+          ajax.timeout = 2000;
+          image.src = 'http://localhost:01101/this_image_should_not_exist.jpg';
+        });
+      });
+    </script>
+
+  </body>
+</html>
