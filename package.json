@@ -29,7 +29,8 @@
     "conventional-github-releaser": "^1.1.1",
     "gulp-conventional-changelog": "^1.1.0",
     "gulp-bump": "^2.1.0",
-    "gulp-git": "^1.7.1"
+    "gulp-git": "^1.7.1",
+    "gulp-util": "^3.0.7"
 	},
 	"engines": {
 		"node": ">=0.10.0"
