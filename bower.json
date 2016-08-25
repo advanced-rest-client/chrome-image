@@ -6,10 +6,10 @@
   "authors": [
     "Pawel Psztyc"
   ],
-  "homepage": "https://github.com/jarrodek/chrome-image",
+  "homepage": "https://github.com/advanced-rest-client/chrome-image",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jarrodek/chrome-image.git"
+    "url": "git://github.com/advanced-rest-client/chrome-image.git"
   },
   "keywords": [
     "webcomponents",
