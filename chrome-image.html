@@ -14,15 +14,21 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 -->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
 <!--
-# chrome-image
+# `<chrome-image>`
+
 A `chrome-image` behaves exactly the same as `iron-image` but it handles images in CSP environment.
 It has additional attribute `blob` that can be used to set an image data.
 If `src` attribute change then ajax request will be made to download the image and it will be placed
 in local filesystem so it can be displayed in Chrome apps.
 
+This element can be also used in any other environment.
+
 ## Permissions
-You need to declare url pattern for the images you'd like to display.
+You need to declare `url` pattern for the images you'd like to display.
 For example:
 
     ...
@@ -55,23 +61,20 @@ For example:
   preload
   blob="[[imageBlob]]"></chrome-image>
 ```
+
+@group Chrome Elements
+@element chrome-image
+@demo demo/index.html
 -->
-<link rel="import" href="../iron-image/iron-image.html">
-<link rel="import" href="../iron-ajax/iron-ajax.html">
-<html>
-  <head></head>
-  <body>
-    <dom-module id="chrome-image">
-      <template>
-        <style>
-          :host {
-            display: inline-block;
-          }
-        </style>
-        <iron-image src="[[localSrc]]" prevent-load="[[preventLoad]]" sizing="[[sizing]]" position="[[position]]" preload="[[preload]]" placeholder="[[placeholder]]" fade="[[fade]]" loaded="{{loaded}}" loading="{{loading}}" error="{{error}}" width="[[width]]" height="[[height]]"></iron-image>
-        <iron-ajax auto url="[[src]]" handle-as="blob" debounce-duration="300" on-response="_imageResponse" on-error="_imageError"></iron-ajax>
-      </template>
-    </dom-module>
-    <script src="chrome-image.js"></script>
-  </body>
-</html>
+<dom-module id="chrome-image">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+    </style>
+    <iron-image src="[[localSrc]]" prevent-load="[[preventLoad]]" sizing="[[sizing]]" position="[[position]]" preload="[[preload]]" placeholder="[[placeholder]]" fade="[[fade]]" loaded="{{loaded}}" loading="{{loading}}" error="{{error}}" width="[[width]]" height="[[height]]"></iron-image>
+    <iron-ajax auto url="[[src]]" handle-as="blob" debounce-duration="300" on-response="_imageResponse" on-error="_imageError"></iron-ajax>
+  </template>
+</dom-module>
+<script src="chrome-image.js"></script>
