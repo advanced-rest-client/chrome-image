@@ -1,3 +1,4 @@
+
 # `<chrome-image>`
 
 A `chrome-image` behaves exactly the same as `iron-image` but it handles images in CSP environment.
@@ -41,3 +42,10 @@ For example:
   preload
   blob="[[imageBlob]]"></chrome-image>
 ```
+
+
+
+### Events
+| Name | Description | Params |
+| --- | --- | --- |
+| chrome-image-error | Fired when ther was an error loading an image. | __none__ |
